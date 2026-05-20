@@ -1,18 +1,16 @@
 # Underwater Image Enhancement
 
-This project implements four traditional underwater image enhancement techniques using Python and OpenCV:
+This project enhances underwater images using:
+- CLAHE (Contrast Limited Adaptive Histogram Equalization)
+- Gamma Correction
+- White Balance
 
-1. Histogram Equalization
-2. CLAHE
-3. Gamma Correction
-4. White Balance Correction
-
-## Folder Structure
-- data/raw: Input underwater images
-- data/processed: Resized images
-- outputs/: Enhanced outputs
-- src/: Source code
+## Technologies Used
+- Python
+- OpenCV
+- NumPy
 
 ## How to Run
 ```bash
+pip install -r requirements.txt
 python main.py

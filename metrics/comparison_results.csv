@@ -1,0 +1,6 @@
+Method,PSNR,SSIM,UIQM
+Original,∞,1.0,479.12
+Histogram EQ,14.74,0.8123,403.72
+CLAHE,19.75,0.8359,358.65
+Gamma,19.83,0.8683,229.16
+White Balance,17.26,0.8427,314.01

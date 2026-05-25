@@ -1,5 +1,7 @@
 import os
 
+from src.pipeline import run_pipeline
+
 from src.preprocessing import (
     load_image,
     resize_image,
@@ -15,6 +17,11 @@ from src.enhancement import (
 
 from src.logger import logger
 
+
+# Run pipeline
+run_pipeline()
+
+
 RAW_DIR = "data/raw"
 
 OUTPUT_DIRS = {
@@ -24,11 +31,14 @@ OUTPUT_DIRS = {
     "white_balance": "outputs/white_balance",
 }
 
+
 # Create output directories
 for folder in OUTPUT_DIRS.values():
     os.makedirs(folder, exist_ok=True)
 
+
 logger.info("Enhancement pipeline started")
+
 
 # Process all images
 for filename in os.listdir(RAW_DIR):
@@ -91,6 +101,7 @@ for filename in os.listdir(RAW_DIR):
         print(f"Processed: {filename}")
 
         logger.info(f"Processed {filename}")
+
 
 logger.info("Enhancement pipeline completed")
 

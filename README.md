@@ -28,6 +28,48 @@ This project implements traditional underwater image enhancement techniques usin
 - src/ → source code
 - config/ → configuration settings
 
+## Project Structure
+
+```text
+underwater-enhancement/
+│
+├── config/
+│   └── config.py
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── logs/
+│   └── project.log
+│
+├── metrics/
+│   └── comparison_results.csv
+│
+├── notebooks/
+│   └── enhancement_demo.ipynb
+│
+├── outputs/
+│   ├── clahe/
+│   ├── comparison_visuals/
+│   ├── gamma/
+│   ├── histogram_eq/
+│   └── white_balance/
+│
+├── src/
+│   ├── enhancement.py
+│   ├── logger.py
+│   ├── metrics.py
+│   ├── pipeline.py
+│   ├── preprocessing.py
+│   └── utils.py
+│
+├── .gitignore
+├── main.py
+├── README.md
+└── requirements.txt
+```
+
 ## Installation
 
 ```bash

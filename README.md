@@ -70,6 +70,33 @@ underwater-enhancement/
 └── requirements.txt
 ```
 
+## Inference Pipeline
+
+The project follows a modular underwater image enhancement pipeline:
+
+```text
+Input Underwater Images
+        ↓
+Preprocessing
+        ↓
+Enhancement Techniques
+    ├── Histogram Equalization
+    ├── CLAHE
+    ├── Gamma Correction
+    └── White Balance Correction
+        ↓
+Output Generation
+        ↓
+Quality Evaluation
+    ├── PSNR
+    ├── SSIM
+    └── UIQM
+        ↓
+Visual Comparison & Analysis
+```
+
+The pipeline automates image enhancement, output generation, and evaluation in a structured workflow.
+
 ## Installation
 
 ```bash

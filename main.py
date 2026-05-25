@@ -1,74 +1,97 @@
 import os
-import cv2
-import numpy as np
 
-from src.preprocessing import load_image
+from src.preprocessing import (
+    load_image,
+    resize_image,
+    save_image,
+)
+
+from src.enhancement import (
+    histogram_equalization,
+    clahe_enhancement,
+    gamma_correction,
+    white_balance,
+)
+
+from src.logger import logger
 
 RAW_DIR = "data/raw"
 
-METHODS = {
-    "Histogram EQ": "outputs/histogram_eq",
-    "CLAHE": "outputs/clahe",
-    "Gamma": "outputs/gamma",
-    "White Balance": "outputs/white_balance",
+OUTPUT_DIRS = {
+    "histogram_eq": "outputs/histogram_eq",
+    "clahe": "outputs/clahe",
+    "gamma": "outputs/gamma",
+    "white_balance": "outputs/white_balance",
 }
 
-OUTPUT_DIR = "outputs/comparison_visuals"
+# Create output directories
+for folder in OUTPUT_DIRS.values():
+    os.makedirs(folder, exist_ok=True)
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+logger.info("Enhancement pipeline started")
 
+# Process all images
 for filename in os.listdir(RAW_DIR):
 
     if filename.lower().endswith((".jpg", ".jpeg", ".png")):
 
-        # Load original image
-        original_path = os.path.join(RAW_DIR, filename)
-        original = load_image(original_path)
+        input_path = os.path.join(RAW_DIR, filename)
 
-        original = cv2.resize(original, (300, 300))
+        # Load image
+        image = load_image(input_path)
 
-        images = [original]
-        labels = ["Original"]
+        # Resize image
+        image = resize_image(image)
 
-        # Load enhanced images
-        for method_name, folder in METHODS.items():
+        # Apply enhancement methods
+        hist_img = histogram_equalization(image)
 
-            path = os.path.join(folder, filename)
+        clahe_img = clahe_enhancement(image)
 
-            img = load_image(path)
+        gamma_img = gamma_correction(
+            image,
+            gamma=0.7
+        )
 
-            img = cv2.resize(img, (300, 300))
+        wb_img = white_balance(image)
 
-            images.append(img)
-            labels.append(method_name)
+        # Save outputs
+        save_image(
+            os.path.join(
+                OUTPUT_DIRS["histogram_eq"],
+                filename
+            ),
+            hist_img
+        )
 
-        # Add labels to images
-        labeled_images = []
+        save_image(
+            os.path.join(
+                OUTPUT_DIRS["clahe"],
+                filename
+            ),
+            clahe_img
+        )
 
-        for img, label in zip(images, labels):
+        save_image(
+            os.path.join(
+                OUTPUT_DIRS["gamma"],
+                filename
+            ),
+            gamma_img
+        )
 
-            img_copy = img.copy()
+        save_image(
+            os.path.join(
+                OUTPUT_DIRS["white_balance"],
+                filename
+            ),
+            wb_img
+        )
 
-            cv2.putText(
-                img_copy,
-                label,
-                (10, 30),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                1,
-                (0, 255, 0),
-                2,
-            )
+        print(f"Processed: {filename}")
 
-            labeled_images.append(img_copy)
+        logger.info(f"Processed {filename}")
 
-        # Concatenate images horizontally
-        comparison = np.hstack(labeled_images)
+logger.info("Enhancement pipeline completed")
 
-        # Save output
-        output_path = os.path.join(OUTPUT_DIR, filename)
-
-        cv2.imwrite(output_path, comparison)
-
-        print(f"Comparison created: {filename}")
-
-print("All comparison visuals created successfully!")
+print("All enhancement outputs generated successfully!")

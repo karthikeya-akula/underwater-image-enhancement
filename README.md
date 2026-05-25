@@ -28,8 +28,9 @@ This project implements traditional underwater image enhancement techniques usin
 - src/ → source code
 - config/ → configuration settings
 
-## Installation
+## Installation & Run project
 ```bash
+##Installation
 pip install -r requirements.txt
 
 ## Run Project
